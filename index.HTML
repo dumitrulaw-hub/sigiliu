@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigiliu — Seal Your Creation. Prove It's Yours.</title>
+<meta name="description" content="Sigiliu creates legally defensible, cryptographic proof of ownership for any digital asset. Upload. Seal. Verify. Forever.">
+<meta property="og:title" content="Sigiliu — The Digital Seal for Creators">
+<meta property="og:description" content="Instant, legally defensible proof of ownership for any digital asset.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sigiliu.io">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sigiliu — Seal Your Creation">
+<meta name="twitter:description" content="Cryptographic proof of ownership. Upload. Seal. Verify. Forever.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08090D;
+  --bg-card: #0E1018;
+  --bg-hover: #141620;
+  --gold: #C9A84C;
+  --gold-light: #E4C76B;
+  --gold-dim: #8B7434;
+  --gold-glow: rgba(201,168,76,0.15);
+  --slate: #1A1D2B;
+  --border: #1E2133;
+  --border-gold: rgba(201,168,76,0.25);
+  --text: #E8E6E1;
+  --text-soft: #9B98A0;
+  --text-muted: #5E5C66;
+  --green: #4ADE80;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+::selection { background: rgba(201,168,76,0.3); }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', -apple-system, sans-serif; overflow-x: hidden; }
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+
+/* Nav */
+.nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 40px; max-width: 1180px; margin: 0 auto; }
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo span { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.08em; color: var(--gold); }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gold); }
+.btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold-dim)); color: var(--bg); border: none; border-radius: 10px; padding: 9px 22px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; letter-spacing: 0.02em; transition: transform 0.2s, box-shadow 0.2s; }
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
+
+/* Hero */
+.hero { text-align: center; padding: 100px 24px 60px; max-width: 760px; margin: 0 auto; position: relative; }
+.hero-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%); pointer-events: none; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-glow); border: 1px solid var(--border-gold); border-radius: 24px; padding: 5px 18px; margin-bottom: 32px; }
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.hero-badge span { color: var(--gold-light); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; }
+.hero h1 { font-size: clamp(42px, 6vw, 72px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; position: relative; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero p { font-size: 17px; color: var(--text-soft); line-height: 1.7; max-width: 520px; margin: 0 auto 40px; }
+.hero-form { display: flex; gap: 12px; max-width: 440px; margin: 0 auto; }
+.hero-form input { flex: 1; padding: 13px 18px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); font-size: 14px; outline: none; font-family: inherit; transition: border-color 0.2s; }
+.hero-form input:focus { border-color: var(--gold); }
+.hero-form button { padding: 13px 28px; white-space: nowrap; }
+.hero-note { font-size: 11px; color: var(--text-muted); margin-top: 14px; letter-spacing: 0.02em; }
+.hero-success { display: none; background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-radius: 14px; padding: 16px 24px; max-width: 440px; margin: 0 auto; align-items: center; gap: 10px; }
+.hero-success.show { display: flex; }
+.hero-success span { color: var(--green); font-size: 13px; font-weight: 500; }
+
+/* Demo */
+.demo-section { padding: 40px 24px 100px; max-width: 1180px; margin: 0 auto; }
+.demo { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; max-width: 540px; margin: 0 auto; position: relative; overflow: hidden; }
+.demo-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent); }
+.demo-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.demo-header h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
+.demo-header p { color: var(--text-muted); font-size: 12px; font-family: 'DM Sans', sans-serif; }
+.demo-upload { border: 1.5px dashed var(--border); border-radius: 14px; padding: 44px 24px; text-align: center; cursor: pointer; transition: all 0.3s; }
+.demo-upload:hover { border-color: var(--gold); background: var(--gold-glow); }
+.demo-upload p { color: var(--text-soft); font-size: 14px; margin-bottom: 6px; }
+.demo-upload span { color: var(--text-muted); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+.demo-hash { margin-bottom: 20px; }
+.demo-hash-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.demo-hash-header span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+.demo-hash-box { background: var(--bg); border-radius: 10px; padding: 12px 14px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--gold); word-break: break-all; min-height: 40px; line-height: 1.7; border: 1px solid var(--border); }
+.demo-result { animation: fadeUp 0.5s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.demo-result-card { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+.demo-result-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.demo-result-header span { color: var(--green); font-size: 13px; font-weight: 600; }
+.demo-result-body { color: var(--text-soft); font-size: 11.5px; line-height: 1.8; font-family: 'JetBrains Mono', monospace; }
+.demo-retry { width: 100%; padding: 10px 0; background: transparent; border: 1px solid var(--border); border-radius: 10px; color: var(--text-muted); font-size: 12px; cursor: pointer; letter-spacing: 0.05em; font-family: inherit; }
+
+/* Sections */
+.section { padding: 100px 24px; max-width: 1180px; margin: 0 auto; }
+.section-label { text-align: center; color: var(--gold); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
+.section h2 { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 64px; letter-spacing: -0.01em; }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 900px; margin: 0 auto; }
+.step-num { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 700; color: var(--gold); opacity: 0.12; margin-bottom: -24px; line-height: 1; }
+.step h3 { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 10px; position: relative; }
+.step p { color: var(--text-soft); font-size: 13.5px; line-height: 1.7; }
+
+/* Features */
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.feature { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px; transition: border-color 0.3s, transform 0.2s; }
+.feature:hover { border-color: var(--border-gold); transform: translateY(-2px); }
+.feature-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--gold-glow); border: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+.feature h3 { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.feature p { color: var(--text-soft); font-size: 13px; line-height: 1.7; }
+
+/* Pricing */
+.pricing-toggle { display: flex; justify-content: center; gap: 12px; margin-bottom: 52px; align-items: center; margin-top: -32px; }
+.pricing-toggle span { font-size: 13px; }
+.toggle-track { width: 42px; height: 22px; background: var(--border); border-radius: 11px; padding: 2px; cursor: pointer; transition: background 0.2s; position: relative; }
+.toggle-track.active { background: var(--gold); }
+.toggle-thumb { width: 18px; height: 18px; border-radius: 9px; background: var(--text-soft); transition: transform 0.2s, background 0.2s; }
+.toggle-track.active .toggle-thumb { transform: translateX(20px); background: var(--bg); }
+.save-badge { background: rgba(74,222,128,0.1); color: var(--green); font-size: 11px; padding: 3px 10px; border-radius: 8px; font-weight: 600; display: none; }
+.save-badge.show { display: inline; }
+
+.plans { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start; }
+.plan { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 28px 24px; position: relative; }
+.plan.popular { border: 1.5px solid var(--gold); box-shadow: 0 0 40px var(--gold-glow); }
+.plan-badge { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--gold), var(--gold-dim)); color: var(--bg); font-size: 10px; font-weight: 700; padding: 4px 14px; border-radius: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+.plan-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: var(--text-soft); }
+.plan-price { display: flex; align-items: baseline; gap: 2px; margin-bottom: 22px; }
+.plan-price .currency { font-size: 11px; color: var(--text-muted); }
+.plan-price .amount { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 700; letter-spacing: -0.03em; }
+.plan-price .period { font-size: 13px; color: var(--text-muted); }
+.plan-cta { width: 100%; padding: 11px 0; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 22px; letter-spacing: 0.02em; font-family: inherit; transition: all 0.2s; }
+.plan-cta.gold { background: linear-gradient(135deg, var(--gold), var(--gold-dim)); color: var(--bg); border: none; }
+.plan-cta.outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.plan-features { display: flex; flex-direction: column; gap: 10px; }
+.plan-feature { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--text-soft); }
+
+/* CTA */
+.cta-section { padding: 100px 24px; text-align: center; }
+.cta-box { max-width: 520px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-gold); border-radius: 24px; padding: 56px 40px; position: relative; overflow: hidden; }
+.cta-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent); }
+.cta-box h2 { font-size: 30px; font-weight: 700; margin: 24px 0 12px; }
+.cta-box p { color: var(--text-soft); font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
+
+/* Footer */
+.footer { border-top: 1px solid var(--border); padding: 28px 40px; max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.footer-left span { color: var(--text-muted); font-size: 12px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--text-muted); text-decoration: none; font-size: 12px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gold); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav { padding: 16px 20px; }
+  .nav-links a:not(.btn-gold) { display: none; }
+  .hero { padding: 60px 20px 40px; }
+  .hero-form { flex-direction: column; }
+  .steps, .features { grid-template-columns: 1fr; gap: 24px; }
+  .plans { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .footer { flex-direction: column; gap: 12px; }
+}
+@media (max-width: 480px) {
+  .plans { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <svg width="32" height="32" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="#C9A84C" stroke-width="1.2"/><circle cx="20" cy="20" r="12" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/><path d="M20 11V17M20 23V29M11 20H17M23 20H29" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="20" r="3" fill="#C9A84C" opacity="0.9"/><circle cx="20" cy="20" r="1.2" fill="#08090D"/></svg>
+    <span>SIGILIU</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <button class="btn-gold">Get started</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <div class="dot"></div>
+    <span>Now accepting early access signups</span>
+  </div>
+  <h1>Seal your creation.<br><em>Prove it's yours.</em></h1>
+  <p>Sigiliu creates legally defensible, cryptographic proof of ownership for any digital asset. Upload. Seal. Verify. Forever.</p>
+  <div class="hero-form" id="waitlist-form">
+    <input type="email" id="email-input" placeholder="your@email.com">
+    <button class="btn-gold" onclick="joinWaitlist()">Join waitlist</button>
+  </div>
+  <div class="hero-success" id="waitlist-success">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#4ADE80" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="#4ADE80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>You're in. We'll notify you at launch.</span>
+  </div>
+  <p class="hero-note">Founding members lock in €5/month for life. No spam.</p>
+</section>
+
+<!-- Demo -->
+<section class="demo-section">
+  <div class="demo">
+    <div class="demo-line"></div>
+    <div class="demo-header">
+      <svg width="36" height="36" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="#C9A84C" stroke-width="1.2"/><circle cx="20" cy="20" r="12" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/><path d="M20 11V17M20 23V29M11 20H17M23 20H29" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="20" r="3" fill="#C9A84C" opacity="0.9"/><circle cx="20" cy="20" r="1.2" fill="#08090D"/></svg>
+      <div>
+        <h3 style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600">Live demo</h3>
+        <p style="color:var(--text-muted);font-size:12px;font-family:'DM Sans',sans-serif;margin:0">See the sealing process in real-time</p>
+      </div>
+    </div>
+    <div id="demo-stage-0" class="demo-upload" onclick="startDemo()">
+      <p>Click to seal a file</p>
+      <span>brand_identity_v4.fig — 3.1 MB</span>
+    </div>
+    <div id="demo-stage-1" style="display:none">
+      <div class="demo-hash">
+        <div class="demo-hash-header">
+          <span style="color:var(--text-muted)">SHA-256 hash</span>
+          <span id="hash-status" style="color:var(--gold)">Computing...</span>
+        </div>
+        <div class="demo-hash-box" id="hash-display"></div>
+      </div>
+    </div>
+    <div id="demo-stage-2" style="display:none" class="demo-result">
+      <div class="demo-result-card">
+        <div class="demo-result-header">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" stroke="#4ADE80" stroke-width="1.2"/><path d="M6 9L8 11L12 7" stroke="#4ADE80" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Sigiliu sealed</span>
+        </div>
+        <div class="demo-result-body" id="demo-timestamp"></div>
+      </div>
+      <button class="demo-retry" onclick="resetDemo()">TRY AGAIN</button>
+    </div>
+  </div>
+</section>
+
+<!-- How it Works -->
+<section id="how-it-works" class="section" style="max-width:900px">
+  <p class="section-label">How it works</p>
+  <h2>Three steps. Sixty seconds. Sealed forever.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Upload</h3>
+      <p>Drag any file — designs, documents, code, video. Up to 500MB. Your file never leaves your control.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Seal</h3>
+      <p>SHA-256 hash + RFC 3161 timestamp from a trusted authority. Cryptographic proof, signed and immutable.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Verify</h3>
+      <p>Get a unique public URL and PDF certificate. Anyone can verify your ownership — now and forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="features" class="section">
+  <p class="section-label">Features</p>
+  <h2>The digital seal for creators who mean business</h2>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#C9A84C" stroke-width="1.2"/><circle cx="12" cy="12" r="5" stroke="#C9A84C" stroke-width="1" opacity=".5"/><circle cx="12" cy="12" r="1.5" fill="#C9A84C"/></svg></div>
+      <h3>Instant seal</h3>
+      <p>Upload any file. Get a cryptographic timestamp in seconds. SHA-256 hashing with RFC 3161 legal-grade authority.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3L4 7V12C4 17.5 7.8 22.7 12 24C16.2 22.7 20 17.5 20 12V7L12 3Z" stroke="#C9A84C" stroke-width="1.2"/></svg></div>
+      <h3>Court-ready proof</h3>
+      <p>Timestamps from DigiCert — on the Adobe Approved Trust List. Designed for EU eIDAS and US Federal Rules of Evidence.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#C9A84C" stroke-width="1.2"/><path d="M3 12H21M12 3C14.5 5.5 15.5 8.5 15.5 12C15.5 15.5 14.5 18.5 12 21C9.5 18.5 8.5 15.5 8.5 12C8.5 8.5 9.5 5.5 12 3Z" stroke="#C9A84C" stroke-width="1"/></svg></div>
+      <h3>Public verification</h3>
+      <p>Every seal gets a unique URL. Anyone can independently verify your ownership by uploading the same file.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12C2 12 5 5 12 5C19 5 22 12 22 12C22 12 19 19 12 19C5 19 2 12 2 12Z" stroke="#C9A84C" stroke-width="1.2"/><circle cx="12" cy="12" r="3" stroke="#C9A84C" stroke-width="1"/></svg></div>
+      <h3>Content monitoring</h3>
+      <p>AI-powered scanning detects unauthorized reuse across the web. Automated alerts when your work appears elsewhere.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="#C9A84C" stroke-width="1.2"/><path d="M9 7H15M9 10H15M9 13H12" stroke="#C9A84C" stroke-width="1" stroke-linecap="round" opacity=".6"/></svg></div>
+      <h3>Digital certificates</h3>
+      <p>Beautiful PDF certificates with QR codes, chain-of-custody metadata, and tamper-proof verification.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M16 18L22 12L16 6M8 6L2 12L8 18" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>API & plugins</h3>
+      <p>Embed Sigiliu into your workflow. WordPress, Shopify plugins. REST API with JavaScript and Python SDKs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing" class="section">
+  <p class="section-label">Pricing</p>
+  <h2>Protect your work at any scale</h2>
+  <div class="pricing-toggle">
+    <span id="monthly-label" style="color:var(--text)">Monthly</span>
+    <div class="toggle-track" id="annual-toggle" onclick="toggleAnnual()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span id="annual-label" style="color:var(--text-muted)">Annual</span>
+    <span class="save-badge" id="save-badge">-33%</span>
+  </div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">Free</div>
+      <div class="plan-price"><span class="currency">€</span><span class="amount" data-monthly="0" data-annual="0">0</span><span class="period"></span></div>
+      <button class="plan-cta outline">Start free</button>
+      <div class="plan-features">
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 seals / month</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SHA-256 hash</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Web verification</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Email certificate</div>
+      </div>
+    </div>
+    <div class="plan popular">
+      <div class="plan-badge">Most popular</div>
+      <div class="plan-name">Creator</div>
+      <div class="plan-price"><span class="currency">€</span><span class="amount" data-monthly="9" data-annual="6">9</span><span class="period">/mo</span></div>
+      <button class="plan-cta gold">Seal your work</button>
+      <div class="plan-features">
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>100 seals / month</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF certificates</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Monitoring dashboard</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Shareable badges</div>
+      </div>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Professional</div>
+      <div class="plan-price"><span class="currency">€</span><span class="amount" data-monthly="29" data-annual="19">29</span><span class="period">/mo</span></div>
+      <button class="plan-cta outline">Go Pro</button>
+      <div class="plan-features">
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited seals</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API access</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Team (3 seats)</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Bulk upload</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Analytics</div>
+      </div>
+    </div>
+    <div class="plan">
+      <div class="plan-name">Business</div>
+      <div class="plan-price"><span class="currency">€</span><span class="amount" data-monthly="99" data-annual="66">99</span><span class="period">/mo</span></div>
+      <button class="plan-cta outline">Contact us</button>
+      <div class="plan-features">
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Pro</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API (10K calls)</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>10 seats + SSO</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom branding</div>
+        <div class="plan-feature"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8L7 11L12 5" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated SLA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <div class="cta-line"></div>
+    <svg width="48" height="48" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="#C9A84C" stroke-width="1.2"/><circle cx="20" cy="20" r="12" stroke="#C9A84C" stroke-width="0.8" opacity="0.5"/><path d="M20 11V17M20 23V29M11 20H17M23 20H29" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="20" r="3" fill="#C9A84C" opacity="0.9"/><circle cx="20" cy="20" r="1.2" fill="#08090D"/></svg>
+    <h2>Your work deserves a seal.</h2>
+    <p>Join creators who never worry about proving ownership again.</p>
+    <button class="btn-gold" style="padding:14px 36px;font-size:15px;border-radius:12px">Start free — no credit card</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">
+    <svg width="20" height="20" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="17" stroke="#C9A84C" stroke-width="1.2"/><circle cx="20" cy="20" r="3" fill="#C9A84C" opacity="0.9"/><circle cx="20" cy="20" r="1.2" fill="#08090D"/></svg>
+    <span>© 2026 Sigiliu S.R.L. All rights reserved.</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Waitlist — connected to Formspree
+function joinWaitlist() {
+  var email = document.getElementById('email-input').value;
+  if (!email || !email.includes('@')) return;
+  var btn = document.querySelector('.hero-form .btn-gold');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  fetch('https://formspree.io/f/xvzwydgw', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email: email, source: 'sigiliu.io waitlist', timestamp: new Date().toISOString() })
+  }).then(function(response) {
+    if (response.ok) {
+      document.getElementById('waitlist-form').style.display = 'none';
+      document.getElementById('waitlist-success').classList.add('show');
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  }).catch(function() {
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  });
+}
+// Demo
+var demoHash = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';
+function startDemo() {
+  document.getElementById('demo-stage-0').style.display = 'none';
+  document.getElementById('demo-stage-1').style.display = 'block';
+  var i = 0;
+  var el = document.getElementById('hash-display');
+  var iv = setInterval(function() {
+    el.textContent = demoHash.slice(0, i);
+    i++;
+    if (i > demoHash.length) {
+      clearInterval(iv);
+      document.getElementById('hash-status').style.color = '#4ADE80';
+      document.getElementById('hash-status').textContent = 'Sealed';
+      setTimeout(function() {
+        document.getElementById('demo-stage-2').style.display = 'block';
+        var now = new Date().toISOString().slice(0, 19);
+        document.getElementById('demo-timestamp').innerHTML =
+          'Timestamp: ' + now + ' UTC<br>Authority: DigiCert RFC 3161 TSA<br>Verify: sigiliu.io/v/e3b0c442';
+      }, 500);
+    }
+  }, 20);
+}
+function resetDemo() {
+  document.getElementById('demo-stage-0').style.display = 'block';
+  document.getElementById('demo-stage-1').style.display = 'none';
+  document.getElementById('demo-stage-2').style.display = 'none';
+  document.getElementById('hash-display').textContent = '';
+  document.getElementById('hash-status').style.color = '#C9A84C';
+  document.getElementById('hash-status').textContent = 'Computing...';
+}
+
+// Pricing toggle
+var isAnnual = false;
+function toggleAnnual() {
+  isAnnual = !isAnnual;
+  document.getElementById('annual-toggle').classList.toggle('active', isAnnual);
+  document.getElementById('monthly-label').style.color = isAnnual ? 'var(--text-muted)' : 'var(--text)';
+  document.getElementById('annual-label').style.color = isAnnual ? 'var(--text)' : 'var(--text-muted)';
+  document.getElementById('save-badge').classList.toggle('show', isAnnual);
+  document.querySelectorAll('.amount').forEach(function(el) {
+    var val = isAnnual ? el.dataset.annual : el.dataset.monthly;
+    el.textContent = val;
+  });
+}
+</script>
+</body>
+</html>
